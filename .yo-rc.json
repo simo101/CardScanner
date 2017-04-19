@@ -1,0 +1,11 @@
+{
+  "generator-mendix": {
+    "promptValues": {
+      "copyright": "2017",
+      "license": "Apache 2",
+      "author": "Simon Black",
+      "boilerplate": "empty",
+      "widgetoptions": []
+    }
+  }
+}
