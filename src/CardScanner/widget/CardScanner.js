@@ -26,37 +26,37 @@ define([
 
         postCreate: function () {
             logger.debug(this.id + ".postCreate");
-        this.domNode.innerHTML = "<button class='btn btn-default'>Scan</button>"
          if (typeof window.CardIO !== "undefined") {
+            window.self = this;
             CardIO.canScan(this.onCardIOCheck);
          }
         },
         
         onCardIOCheck : function (canScan) {
             console.log("card.io canScan? " + canScan);
-            var scanBtn = this.domNode
+            var scanBtn = window.document.getElementsByClassName(window.self.btnClass)[0];
             if (!canScan) {
               scanBtn.innerHTML = "Manual entry";
             }
             scanBtn.onclick = function (e) {
               CardIO.scan({
-                  "requireExpire":this.requireExpiry,
-                  "requireCVV":this.requireCVV,
-                  "requirePostalCode":this.requirePostalCode,
-                  "suppressManual":this.suppressManual,
-                  "restrictPostalCodeToNumericOnly":this.restrictPostalCodeToNumericOnly,
-                  "keepApplicationTheme":this.keepApplicationTheme,
-                  "requireCardholderName":this.requireCardholderName,
-                  "scanInstructions":this.scanInstructions,
-                  "noCamera":this.noCamera,
-                  "scanExpiry":this.scanExpiry,
-                  "guideColor":this.guideColor,
-                  "suppressConfirmation":this.suppressConfirmation,
-                  "hideCardIOLogo":this.hideCardIOLogo,
-                  "useCardIOLogo":this.useCardIOLogo
+                  "requireExpire":window.self.requireExpiry,
+                  "requireCVV":window.self.requireCVV,
+                  "requirePostalCode":window.self.requirePostalCode,
+                  "suppressManual":window.self.suppressManual,
+                  "restrictPostalCodeToNumericOnly":window.self.restrictPostalCodeToNumericOnly,
+                  "keepApplicationTheme":window.self.keepApplicationTheme,
+                  "requireCardholderName":window.self.requireCardholderName,
+                  "scanInstructions":window.self.scanInstructions,
+                  "noCamera":window.self.noCamera,
+                  "scanExpiry":window.self.scanExpiry,
+                  "guideColor":window.self.guideColor,
+                  "suppressConfirmation":window.self.suppressConfirmation,
+                  "hideCardIOLogo":window.self.hideCardIOLogo,
+                  "useCardIOLogo":window.self.useCardIOLogo
                 },
-                this.onCardIOComplete,
-                this.onCardIOCancel
+                window.self.onCardIOComplete,
+                window.self.onCardIOCancel
               );
             }
           },
@@ -74,7 +74,9 @@ define([
             console.log("card.io scan complete");
             for (var i = 0, len = cardIOResponseFields.length; i < len; i++) {
               var field = cardIOResponseFields[i];
-              console.log(field + ": " + response[field]);
+              if(field == "redactedCardNumber"){
+                  window.self._contextObj.set(window.self.cardNumber,response[field]);
+              }
             }
           },
 

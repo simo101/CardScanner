@@ -6,7 +6,8 @@
     iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAZdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuMTM0A1t6AAADMUlEQVRIS+2V7U9SURzH+W/K8mlWvmnVi97YdAstl9MXmrpVpqt8oEnTWeGWtjTXFEnK3CqfXiSDwMehpiZKoJICAoo8GV4kQAF5uPf2u94rg61NaerW5ne/3Z3zO+f3/Zx7zz330vAj1glgXx09AMWDbtTpRh27VyJQLEANRqkgFgiZUFZ4kMYxMQtU5/L3okB1XumcpSqiFBSGrMgGx8ykMbRpuZo48C1UXtiNZJVTSlVEKQBAOekDhmAL5gQgbzl+xT3vx71kYDhKVUQpKAyZ6NxzYBsCJBjcKmrWIWnNrTwGQAJDm0qrXKbD8zJsq6mRAwjDMcRr2Ql6qP7fBCuGfQZzmgd1bqO/4X2iRg4gH+q9wY8dN3wlu1DbbKqYdojILikUC4ItmP/DQcMAkME/GwLA3nZYWDKXmOwSiTBRAMv2asOP8srJbNHKZ4NLS7Qnsj8pm2B1H37W92rYLMld1aZ8QN8FeY6iJp1/JgJgZkldwwHMx0M4tYZctvmxZUdHjhIAOIFFIynMyZwedbMCmba6jUNrPTJk/JYwUbEhKR3NyB+8xNO+nzAJwbd1oaZNwaILToU/ojLNNf4ml49wi7QXBTbuC0NhhS4VeDBKAGye9XR+zNzG1O58fFDfnT9w5ZGYflMYKzbyANCmeA75fn1XljAJxQPgmNOfTAJgw/cAba9M99lmBiSX3bLb6kTEb4I2AQhg/jtDV2u+F/C1HSq7rESc1rJQpXMoskRJYmMfANoX62Dakk1K58d0LL78qGykC04DYNIheLqa48W2yjQpcAdfEHax9vKIvavRWFyqS/FjOxQApHeqayX3Ho7R+zTvJszC8vHMRmlF/eyD+Y0pjvzZgL4b5sBiebr20rH0N3Jm3UyJwiqZ3/rWYmT4MO9bw5Npp8iPebutDVWrmQDQe5WkMwU4VEW+RcNIJ8/KcfhsVOKQ5PAjPGsrmP/f36LjAqTmaeJ715uGbZ1k2H1WalaUsvt+hUx611/nagAAX1Pddfj1hEX8kmuGqohSSy5JpFUcmNPkrlGuuZprrtqLaotnhaqIUlAY5kNYzbnGjuIcROgEsK+OGIDjfwCFZ+8+wwpeJQAAAABJRU5ErkJggg==
     </icon>
 
-    <properties>
+    <properties>        
+     
         <property key="cardNumber" type="attribute" required="true">
             <caption>Card Number</caption>
             <category>Data</category>
@@ -47,6 +48,11 @@
                         <attributeType name="String"/>
             </attributeTypes>
         </property>
+            <property key="btnClass" type="string" required="true" defaultValue="btn-scan">
+            <caption>Button Class</caption>
+            <category>Setup</category>
+            <description>The unique class for the button to attach the action to</description>
+        </property>
         <property key="requireExpiry" type="boolean" defaultValue="false">
             <caption>Require Expiry</caption>
             <category>Setup</category>
@@ -57,6 +63,7 @@
             <category>Setup</category>
             <description>The user will be prompted for the card CVV</description>
         </property>
+        
         <property key="requirePostalCode" type="boolean" defaultValue="false">
             <caption>Require PostalCode</caption>
             <category>Setup</category>
