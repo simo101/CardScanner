@@ -16,10 +16,18 @@
                         <attributeType name="String"/>
             </attributeTypes>
         </property>
-        <property key="cardExpiry" type="attribute" required="false">
-            <caption>Card Expiry</caption>
+        <property key="cardExpiryMonth" type="attribute" required="false">
+            <caption>Card Expiry Month</caption>
             <category>Data</category>
-            <description>Used to store the card number. You must have this option turned on in setup.</description>
+            <description>Used to store the Expiry Year. You must have this option turned on in setup.</description>
+            <attributeTypes>
+                        <attributeType name="String"/>
+            </attributeTypes>
+        </property>
+        <property key="cardExpiryYear" type="attribute" required="false">
+            <caption>Card Expiry Year</caption>
+            <category>Data</category>
+            <description>Used to store the Expiry Year. You must have this option turned on in setup.</description>
             <attributeTypes>
                         <attributeType name="String"/>
             </attributeTypes>
@@ -74,6 +82,12 @@
             <category>Setup</category>
             <description>Removes the keyboard button from the scan screen.</description>
         </property>
+        <property key="afterScanMicroflow" type="microflow" required="false">
+            <caption>Microflow executed after successful scan</caption>
+            <category>Setup</category>
+            <description></description>
+            <returnType type="Void"/>
+        </property>
         <property key="restrictPostalCodeToNumericOnly" type="boolean" defaultValue="false">
             <caption>Restrict postcal Code to Numeric</caption>
             <category>Setup</category>
@@ -89,6 +103,11 @@
             <category>Setup</category>
             <description>The user will be prompted for the cardholder name</description>
         </property>
+        <property key="scanExpiry" type="boolean" defaultValue="false">
+            <caption>Scan Expiry</caption>
+            <category>Setup</category>
+            <description>If scanExpiry is true, an attempt to extract the expiry from the card image will be made.</description>
+        </property>
         <property key="scanInstructions" type="string" required="false">
             <caption>Scan Instructions</caption>
             <category>Appearance</category>
@@ -99,11 +118,7 @@
             <category>Appearance</category>
             <description>If set, the card will not be scanned with the camera.</description>
         </property>
-        <property key="scanExpiry" type="boolean" defaultValue="false">
-            <caption>Scan Expiry</caption>
-            <category>Appearance</category>
-            <description>If scanExpiry is true, an attempt to extract the expiry from the card image will be made.</description>
-        </property>
+
         <property key="guideColor" type="string" required="false">
             <caption>Guide Color</caption>
             <category>Appearance</category>

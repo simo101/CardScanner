@@ -27,38 +27,37 @@ define([
         postCreate: function () {
             logger.debug(this.id + ".postCreate");
          if (typeof window.CardIO !== "undefined") {
-            window.self = this;
-            CardIO.canScan(this.onCardIOCheck);
+            lang.hitch(this,CardIO.canScan(lang.hitch(this,this.onCardIOCheck)));        
          }
         },
         
         onCardIOCheck : function (canScan) {
             console.log("card.io canScan? " + canScan);
-            var scanBtn = window.document.getElementsByClassName(window.self.btnClass)[0];
+            var scanBtn = window.document.getElementsByClassName(this.btnClass)[0];
             if (!canScan) {
               scanBtn.innerHTML = "Manual entry";
             }
-            scanBtn.onclick = function (e) {
+            scanBtn.onclick = lang.hitch(this,function (e) {
               CardIO.scan({
-                  "requireExpire":window.self.requireExpiry,
-                  "requireCVV":window.self.requireCVV,
-                  "requirePostalCode":window.self.requirePostalCode,
-                  "suppressManual":window.self.suppressManual,
-                  "restrictPostalCodeToNumericOnly":window.self.restrictPostalCodeToNumericOnly,
-                  "keepApplicationTheme":window.self.keepApplicationTheme,
-                  "requireCardholderName":window.self.requireCardholderName,
-                  "scanInstructions":window.self.scanInstructions,
-                  "noCamera":window.self.noCamera,
-                  "scanExpiry":window.self.scanExpiry,
-                  "guideColor":window.self.guideColor,
-                  "suppressConfirmation":window.self.suppressConfirmation,
-                  "hideCardIOLogo":window.self.hideCardIOLogo,
-                  "useCardIOLogo":window.self.useCardIOLogo
+                  "requireExpire":this.requireExpiry,
+                  "requireCVV":this.requireCVV,
+                  "requirePostalCode":this.requirePostalCode,
+                  "suppressManual":this.suppressManual,
+                  "restrictPostalCodeToNumericOnly":this.restrictPostalCodeToNumericOnly,
+                  "keepApplicationTheme":this.keepApplicationTheme,
+                  "requireCardholderName":this.requireCardholderName,
+                  "scanInstructions":this.scanInstructions,
+                  "noCamera":this.noCamera,
+                  "scanExpiry":this.scanExpiry,
+                  "guideColor":this.guideColor,
+                  "suppressConfirmation":this.suppressConfirmation,
+                  "hideCardIOLogo":this.hideCardIOLogo,
+                  "useCardIOLogo":this.useCardIOLogo
                 },
-                window.self.onCardIOComplete,
-                window.self.onCardIOCancel
+                lang.hitch(this,this.onCardIOComplete),
+                lang.hitch(this,this.onCardIOCancel)
               );
-            }
+            });
           },
 
         onCardIOComplete : function(response) {
@@ -69,16 +68,33 @@ define([
                 "expiryMonth",
                 "expiryYear",
                 "cvv",
-                "postalCode"
+                "postalCode",
+                "cardholderName"
             ];
+
             console.log("card.io scan complete");
             for (var i = 0, len = cardIOResponseFields.length; i < len; i++) {
               var field = cardIOResponseFields[i];
-              if(field == "redactedCardNumber"){
-                  window.self._contextObj.set(window.self.cardNumber,response[field]);
+              if(field == "cardNumber"){
+                  this._contextObj.set(this.cardNumber,response[field]);
+              }else if(field=="expiryMonth"){
+                  this._contextObj.set(this.cardExpiryMonth,response[field]);
+              }else if(field=="expiryYear"){
+                  this._contextObj.set(this.cardExpiryYear,response[field]);
+              }else if(field=="cvv"){
+                  this._contextObj.set(this.cardCVV,response[field]);
+              }else if(field=="cardholderName"){
+                  this._contextObj.set(this.cardHoldersName,response[field]);
+              }else if(field=="postalCode"){
+                  this._contextObj.set(this.cardPostcode,response[field]);
               }
             }
+            this._execMf(this.afterScanMicroflow,this._contextObj.getGuid(),this.microflowExecuted);
           },
+
+        microflowExecuted:function(){
+            console.log("After Scan microflow executed");
+        },
 
         onCardIOCancel: function() {
             console.log("card.io scan cancelled");
