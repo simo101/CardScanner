@@ -5,7 +5,7 @@ In order to use this widget you need to include the following plugin in your con
 
 ```<plugin spec="https://github.com/card-io/card.io-Cordova-Plugin.git" source="git"/>```
 
-The widegt needs to be placed in a dataview. If you require the expiry, cvv and cardholders name you will need to select the appropriate attribute selected.
+The widget needs to be placed in a dataview. If you require the expiry, cvv and cardholders name you will need to select the appropriate attribute.
 
 ### Data
 ![Data Setup][1]
