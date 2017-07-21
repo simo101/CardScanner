@@ -1,4 +1,6 @@
 # Mendix Card Scanner
+This Mendix widget allows your users to open up a scanner on their mobile phone and scan a credit or debit card. The widget will read the card numbers and name then assign these to Mendix attributes. This widget utilizes the card.io technology and only works when wrapped as a native app.
+
 
 ## Installation
 In order to use this widget you need to include the following plugin in your config.xml
